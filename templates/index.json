@@ -1,1 +1,116 @@
-{"sections":{"image_banner":{"type":"image-banner","blocks":{"heading":{"type":"heading","settings":{"heading":"Browse our latest products","heading_size":"h0"}},"button":{"type":"buttons","settings":{"button_label_1":"Shop all","button_link_1":"shopify:\/\/collections\/all","button_style_secondary_1":true,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["heading","button"],"settings":{"image_overlay_opacity":40,"image_height":"large","desktop_content_position":"bottom-center","show_text_box":false,"desktop_content_alignment":"center","color_scheme":"background-1","image_behavior":"none","mobile_content_alignment":"center","stack_images_on_mobile":false,"show_text_below":false}},"featured_collection":{"type":"featured-collection","settings":{"title":"Featured products","heading_size":"h2","description":"","show_description":false,"description_style":"body","collection":"all","products_to_show":8,"columns_desktop":4,"full_width":false,"show_view_all":true,"view_all_style":"solid","enable_desktop_slider":false,"color_scheme":"background-1","image_ratio":"adapt","show_secondary_image":true,"show_vendor":false,"show_rating":false,"columns_mobile":"2","swipe_on_mobile":false,"padding_top":44,"padding_bottom":36}}},"order":["image_banner","featured_collection"]}
+{
+  "sections": {
+    "image_and_text_KgAhMp": {
+      "type": "image-and-text",
+      "blocks": {
+        "cta_button_FywtXY": {
+          "type": "cta_button",
+          "settings": {
+            "title": "Pre Order",
+            "url": "shopify:\/\/collections\/test-collection-1",
+            "button_styles": "primary_cta"
+          }
+        },
+        "cta_button_x83zLM": {
+          "type": "cta_button",
+          "settings": {
+            "title": "Read the story",
+            "url": "shopify:\/\/collections\/best-sellers",
+            "button_styles": "secondary_cta"
+          }
+        }
+      },
+      "block_order": [
+        "cta_button_FywtXY",
+        "cta_button_x83zLM"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 60,
+        "sub_heading": "Coming Soon",
+        "title": "Next Generation",
+        "description": "Tero Palmroth Design opposes disposable fashion culture. These boots and shoes are made to last. The designs and styles are timeless. The craftsmanship quality is high.",
+        "col_background_image": "shopify:\/\/shop_images\/shoe_bg.png"
+      }
+    },
+    "product_preview_REQJNw": {
+      "type": "product-preview",
+      "blocks": {
+        "product_zhMBRy": {
+          "type": "product",
+          "settings": {
+            "product": "t-shirt"
+          }
+        },
+        "product_MPG6bX": {
+          "type": "product",
+          "settings": {
+            "product": "windbreaker"
+          }
+        },
+        "product_YjDVqm": {
+          "type": "product",
+          "settings": {
+            "product": "jacket-1"
+          }
+        },
+        "product_kYxCab": {
+          "type": "product",
+          "settings": {
+            "product": "sweatshirt"
+          }
+        },
+        "product_h8eM4z": {
+          "type": "product",
+          "settings": {
+            "product": "powell-jacket"
+          }
+        },
+        "product_LqxKDP": {
+          "type": "product",
+          "settings": {
+            "product": "t-shirt-2"
+          }
+        },
+        "product_nwxQzC": {
+          "type": "product",
+          "settings": {
+            "product": "jacket-2"
+          }
+        },
+        "product_Yppe3L": {
+          "type": "product",
+          "settings": {
+            "product": "sweatshirt"
+          }
+        }
+      },
+      "block_order": [
+        "product_zhMBRy",
+        "product_MPG6bX",
+        "product_YjDVqm",
+        "product_kYxCab",
+        "product_h8eM4z",
+        "product_LqxKDP",
+        "product_nwxQzC",
+        "product_Yppe3L"
+      ],
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 50,
+        "padding_top_mobile": 26,
+        "padding_bottom_mobile": 37,
+        "title": "Mens Summer Tops",
+        "button_title": "See everything",
+        "button_url": "shopify:\/\/collections\/frontpage",
+        "button_styles": "link"
+      }
+    }
+  },
+  "order": [
+    "image_and_text_KgAhMp",
+    "product_preview_REQJNw"
+  ]
+}

@@ -1,0 +1,184 @@
+{% liquid
+    assign padding_top = section.settings.padding_top
+    assign padding_bottom = section.settings.padding_bottom
+    assign padding_top_mobile = section.settings.padding_top_mobile
+    assign padding_bottom_mobile = section.settings.padding_bottom_mobile
+
+    assign title = section.settings.title | default: null
+    assign button_title = section.settings.button_title | default: null
+    assign button_url = section.settings.button_url | default: '#'
+    assign button_styles = section.settings.button_styles
+%}
+
+<script src="{{ 'product-card.js' | asset_url }}" defer="defer" type="module"></script>
+
+<style>
+    #{{ section.id }}.section-padding {
+        padding-top: {{ padding_top_mobile }}px;
+        padding-bottom: {{ padding_bottom_mobile }}px;
+    }
+
+    @media (min-width: 768px) {
+        #{{ section.id }}.section-padding {
+            padding-top: {{ padding_top }}px;
+            padding-bottom: {{ padding_bottom }}px;
+        }
+    }
+</style>
+
+<div 
+    id="{{ section.id }}"
+    class="        
+        section-padding
+        grid grid-cols-1 gap-0 px-5 md:px-10
+        font-roboto font-normal text-grey-100
+    "
+>
+    {% if title %}
+        <h2 class="font-roboto-bold font-bold text-[28px]/[32px] tracking-wide text-grey-200 mb-[36px]"> 
+            {{ title }}
+        </h2>
+    {% endif %}
+
+    <ul 
+        class="
+            flex md:grid md:grid-cols-4 gap-x-[21px] gap-y-[36px]
+            snap-mandatory snap-x overflow-x-auto overflow-y-hidden md:overflow-hidden
+            pb-8 mb-8 md:pb-0 md:mb-7
+        "
+    >
+        {% for block in section.blocks %}
+            {% case block.type %}
+                {% when 'product' %}
+                    {% liquid
+                        assign product = block.settings.product
+                    %}
+
+                    {%
+                        render 'product-card',
+                        product: product
+                    %}
+            {% endcase %}
+        {% endfor %}
+    </ul>
+
+    {% render 'cta-button',
+        title: button_title,
+        url: button_url,
+        button_styles: button_styles
+    %}
+</div>
+
+{% schema %}
+    {
+        "name": "Product preview",
+        "class": "product-preview",
+        "settings": [
+            {
+                "type": "header",
+                "content": "General settings"
+            },
+            {
+                "type": "range",
+                "id": "padding_top",
+                "label": "Padding top",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom",
+                "label": "Padding bottom",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+            },
+            {
+                "type": "range",
+                "id": "padding_top_mobile",
+                "label": "Padding top (Mobile)",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom_mobile",
+                "label": "Padding bottom (Mobile)",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+            },
+            {
+                "type": "header",
+                "content": "Section settings"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            },
+            {
+                "type": "header",
+                "content": "Button settings"
+            },
+            {
+                "type": "text",
+                "id": "button_title",
+                "label": "Title"
+            },
+            {
+                "type": "url",
+                "id": "button_url",
+                "label": "URL"
+            },
+            {
+                "type": "select",
+                "id": "button_styles",
+                "label": "Button styles",
+                "options": [
+                    {
+                        "value": "primary_cta",
+                        "label": "Primary"
+                    },
+                    {
+                        "value": "secondary_cta",
+                        "label": "Secondary"
+                    },
+                    {
+                        "value": "link",
+                        "label": "Link"
+                    }
+                ],
+                "default": "primary_cta"
+            }
+        ],
+        "blocks": [
+            {
+                "name": "product",
+                "type": "product",
+                "settings": [
+                    {
+                        "type": "product",
+                        "id": "product",
+                        "label": "Product"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Product preview"
+            }
+        ]
+    }
+{% endschema %}

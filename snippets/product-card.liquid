@@ -1,0 +1,71 @@
+{% if product %}
+    <li class="snap-center">
+        <product-card class="flex flex-col gap-[13px] w-[55vw] md:w-full md:pb-2">
+            <div class="relative w-full aspect-square">
+                {% if product.has_only_default_variant %}
+                    <a 
+                        href="{{ product.url }}"
+                        class="absolute w-full h-full"
+                    >
+                        {{ product.featured_image | image_url: width: 324 | image_tag: class: 'object-cover w-full h-full', loading: 'lazy' }}
+                    </a>
+                {% else %}
+                    {% for variant in product.variants %}
+                        <a 
+                            href="{{ variant.url }}"
+                            class="
+                                absolute w-full h-full invisible opacity-0
+                                transition-opacity duration-300 
+
+                                {% if forloop.first %}
+                                    selected-product                                    
+                                {% endif %}
+                            "
+                            variant-image
+                            variant-id="{{ variant.id }}"
+                        >
+                            {{ variant.image | image_url: width: 324 | image_tag: class: 'object-cover w-full h-full', loading: 'lazy' }}   
+                        </a>
+                    {% endfor %}  
+                {% endif %}                 
+            </div>
+
+            <div class="flex flex-col gap-[13px] items-center">
+                <h4 class="font-roboto-bold text-[16px]/[16px] tracking-normal text-grey-200">
+                    {{ product.title }}
+                </h4>
+
+                <span class="text-[14px]/[14px] tracking-normal text-grey-100">
+                    {{ product.price | money_without_trailing_zeros }}
+                </span>
+
+                {% unless product.has_only_default_variant %}
+                    <product-swatches class="flex gap-[7.21px]">
+                        {% for variant in product.variants %}
+                            {% assign product_swatches_list = variant.metafields.custom.product_swatches_list | split: " - " %}
+
+                            {% if product_swatches_list != blank %}
+                                <button 
+                                    class="
+                                        relative
+                                        border-[0.36px] border-solid rounded-full border-grey-100 w-[13.70px] h-[13.70px] opacity-100
+                                        before:transition before:duration-200
+
+                                        {% if forloop.first %}
+                                            selected-swatch 
+                                        {% endif %}
+                                    " 
+                                    product-swatch
+                                    variant-id="{{ variant.id }}"
+                                    style="background-color: {{ product_swatches_list | slice: 1 }}"
+                                    aria-label="{{ variant.title }}"
+                                >
+                                </button>
+                            {% endif %} 
+                        {% endfor %}
+                    </product-swatches>
+                {% endunless %}
+            </div>
+        </product-card>
+    </li>
+{% endif %}
