@@ -1,0 +1,227 @@
+{% liquid
+    assign padding_top = section.settings.padding_top
+    assign padding_bottom = section.settings.padding_bottom
+    assign padding_top_mobile = section.settings.padding_top_mobile
+    assign padding_bottom_mobile = section.settings.padding_bottom_mobile
+
+    assign title = section.settings.title | default: null
+    assign sub_heading = section.settings.sub_heading | default: null
+    assign description = section.settings.description | default: null
+    assign col_background_image = section.settings.col_background_image | default: null
+    assign col_background_image_mobile = section.settings.col_background_image_mobile | default: null
+%}
+
+<style>
+    #{{ section.id }}.section-padding {
+        padding-top: {{ padding_top_mobile }}px;
+        padding-bottom: {{ padding_bottom_mobile }}px;
+    }
+
+    @media (min-width: 768px) {
+        #{{ section.id }}.section-padding {
+            padding-top: {{ padding_top }}px;
+            padding-bottom: {{ padding_bottom }}px;
+        }
+    }
+</style>
+
+<div 
+    id="{{ section.id }}"
+    class="
+        section-padding
+        grid grid-cols-1 md:grid-cols-2 gap-0
+        font-roboto font-normal tracking-normal text-grey-200"
+>
+    <div class="col-span-full md:col-span-1 order-2 md:order-1">
+        <div 
+            class="
+                relative aspect-auto grid items-center
+                md:flex md:justify-center md:left-0 md:right-0 md:top-0 md:max-h-[745px] md:max-w-[745px]
+            "
+        >
+            {% render 'icons' with 'ellipse',
+                class: 'object-cover w-full h-full hidden md:!flex md:opacity-0 md:invisible xl:opacity-100 xl:visible'
+            %}
+
+            <div class="
+                    relative w-full flex flex-col gap-y-[20px] px-5
+                    md:absolute md:px-10 xl:px-0 md:gap-y-[22px] md:max-w-[526px]
+                "
+            >
+                {% if sub_heading %}
+                    <span class="font-roboto-bold font-bold text-[16px]/[16px] md:text-[23px]/[33px] tracking-wide text-grey-100">
+                        {{ sub_heading }}
+                    </span>
+                {% endif %}
+
+                {% if title %}
+                    <h1 class="font-roboto-bold font-bold text-[28px]/[32px] md:text-[50px]/[50px]">
+                        {{ title }}
+                    </h1>
+                {% endif %}
+
+                {% if description %}
+                    <p class="text-[16px]/[20px] xl:text-[23px]/[33px] text-grey-100">
+                        {{ description }}
+                    </p>
+                {% endif %}
+
+                <div class="[&:has(a)]:flex gap-y-[20px] md:gap-x-[22px] flex-col xl:flex-row">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'cta_button' %}
+                                {% liquid
+                                    assign title = block.settings.title | default: null
+                                    assign url = block.settings.url | default: '#'
+                                    assign button_styles = block.settings.button_styles
+                                %}
+
+                                {% render 'cta-button',
+                                    title: title,
+                                    url: url,
+                                    button_styles: button_styles
+                                %}
+                        {% endcase %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  class="col-span-full md:col-span-1 order-1 md:order-2 pl-[34px] pb-[35px] md:py-[75px] md:pl-[74px]">
+        <div class="w-full h-full max-h-[640px]">
+            {% if col_background_image %}
+                {{ col_background_image | image_url: width: 2560 | image_tag: class: 'object-contain object-right w-full h-full hidden md:!block' }}
+            {% endif %}
+            {% if col_background_image_mobile %}
+                {{ col_background_image_mobile | image_url: width: 720 | image_tag: class: 'object-contain object-right w-full h-full block md:!hidden' }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Image and text",
+        "class": "image-and-text",
+        "settings": [
+            {
+                "type": "header",
+                "content": "General settings"
+            },
+            {
+                "type": "range",
+                "id": "padding_top",
+                "label": "Padding top",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom",
+                "label": "Padding bottom",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+            },
+            {
+                "type": "range",
+                "id": "padding_top_mobile",
+                "label": "Padding top (Mobile)",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom_mobile",
+                "label": "Padding bottom (Mobile)",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+            },
+            {
+                "type": "header",
+                "content": "Section settings"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "Sub-heading"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Description"
+            },
+            {
+                "type": "image_picker",
+                "id": "col_background_image",
+                "label": "Background image (Column)"
+            },
+            {
+                "type": "image_picker",
+                "id": "col_background_image_mobile",
+                "label": "Background image (Column - Mobile)"
+            }
+        ],
+        "blocks": [
+            {
+                "name": "CTA button",
+                "type": "cta_button",
+                "limit": 2,
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title"
+                    },
+                    {
+                        "type": "url",
+                        "id": "url",
+                        "label": "URL"
+                    },
+                    {
+                        "type": "select",
+                        "id": "button_styles",
+                        "label": "Button styles",
+                        "options": [
+                            {
+                                "value": "primary_cta",
+                                "label": "Primary"
+                            },
+                            {
+                                "value": "secondary_cta",
+                                "label": "Secondary"
+                            },
+                            {
+                                "value": "link",
+                                "label": "Link"
+                            }
+                        ],
+                        "default": "primary_cta"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+            "name": "Image and text"
+            }
+        ]
+    }
+{% endschema %}

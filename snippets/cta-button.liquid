@@ -1,0 +1,38 @@
+{% if title %}
+    <a 
+        href="{{ url }}"
+        class="
+            w-full md:max-w-[252px] flex
+            font-roboto-bold font-bold tracking-normal
+            transition transition-300 group
+
+            {% if button_styles == 'primary_cta' %}
+                justify-center items-center gap-[22px]
+                bg-primary-blue text-white
+                border border-solid border-transparent
+                p-[20px] text-[22px]/[22px]
+                hover:opacity-80
+            {% elsif button_styles == 'secondary_cta' %}
+                justify-center bg-white text-grey-200
+                border border-solid border-grey-200
+                p-[20px] text-[22px]/[22px]
+                hover:bg-secondary-white
+            {% else %}
+                gap-[12px]
+                text-grey-200 
+                text-[16px]/[16px]
+                hover:text-grey-100
+            {% endif %}
+        "
+    >
+        <span>
+            {{ title }}
+        </span>
+
+        {% if button_styles == 'primary_cta' %}
+            {% render 'icons' with 'arrow-white', class: 'group-hover:animate-bounceX' %}
+        {% elsif button_styles == 'link' %}
+            {% render 'icons' with 'arrow-black', class: 'group-hover:animate-bounceX' %}
+        {% endif %}
+    </a>
+{% endif %}
