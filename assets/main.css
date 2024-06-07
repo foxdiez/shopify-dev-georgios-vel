@@ -1081,10 +1081,6 @@ video {
     margin-bottom: 1.75rem;
   }
 
-  .md\:block {
-    display: block;
-  }
-
   .md\:\!block {
     display: block !important;
   }
@@ -1099,10 +1095,6 @@ video {
 
   .md\:grid {
     display: grid;
-  }
-
-  .md\:hidden {
-    display: none;
   }
 
   .md\:\!hidden {
@@ -1176,10 +1168,6 @@ video {
     padding-left: 74px;
   }
 
-  .md\:pr-0 {
-    padding-right: 0px;
-  }
-
   .md\:text-\[23px\]\/\[33px\] {
     font-size: 23px;
     line-height: 33px;
@@ -1204,8 +1192,9 @@ video {
     flex-direction: row;
   }
 
-  .xl\:pl-0 {
+  .xl\:px-0 {
     padding-left: 0px;
+    padding-right: 0px;
   }
 
   .xl\:text-\[23px\]\/\[33px\] {
