@@ -1081,6 +1081,14 @@ video {
     margin-bottom: 1.75rem;
   }
 
+  .md\:block {
+    display: block;
+  }
+
+  .md\:\!block {
+    display: block !important;
+  }
+
   .md\:\!flex {
     display: flex !important;
   }
@@ -1091,6 +1099,14 @@ video {
 
   .md\:grid {
     display: grid;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:\!hidden {
+    display: none !important;
   }
 
   .md\:max-h-\[745px\] {

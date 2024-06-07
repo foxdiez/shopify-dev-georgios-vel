@@ -8,6 +8,7 @@
     assign sub_heading = section.settings.sub_heading | default: null
     assign description = section.settings.description | default: null
     assign col_background_image = section.settings.col_background_image | default: null
+    assign col_background_image_mobile = section.settings.col_background_image_mobile | default: null
 %}
 
 <style>
@@ -90,7 +91,10 @@
     <div  class="col-span-full md:col-span-1 order-1 md:order-2 pl-[34px] pb-[35px] md:py-[75px] md:pl-[74px]">
         <div class="w-full h-full max-h-[640px]">
             {% if col_background_image %}
-                {{ col_background_image | image_url: width: 2560 | image_tag: class: 'object-contain object-right w-full h-full', loading: 'lazy' }}
+                {{ col_background_image | image_url: width: 2560 | image_tag: class: 'object-contain object-right w-full h-full hidden md:!block' }}
+            {% endif %}
+            {% if col_background_image_mobile %}
+                {{ col_background_image_mobile | image_url: width: 720 | image_tag: class: 'object-contain object-right w-full h-full block md:!hidden' }}
             {% endif %}
         </div>
     </div>
@@ -168,6 +172,11 @@
                 "type": "image_picker",
                 "id": "col_background_image",
                 "label": "Background image (Column)"
+            },
+            {
+                "type": "image_picker",
+                "id": "col_background_image_mobile",
+                "label": "Background image (Column - Mobile)"
             }
         ],
         "blocks": [
